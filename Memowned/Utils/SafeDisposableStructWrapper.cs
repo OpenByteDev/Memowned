@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace OwnedMemory {
+namespace Memowned {
     public class SafeDisposableStructWrapper<T> : IDisposable
         where T : struct, IDisposable {
         private readonly T _value;
@@ -21,12 +23,14 @@ namespace OwnedMemory {
 
         protected void ThrowIfDisposed() {
             if (IsDisposed)
-                throw new ObjectDisposedException(GetType().Name);
+                ThrowObjectDisposedException();
+
+            [DoesNotReturn]
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            void ThrowObjectDisposedException() => throw new ObjectDisposedException(GetType().Name);
         }
 
-        protected bool MarkDisposed() {
-            return Interlocked.Exchange(ref _disposed, 1) == 0;
-        }
+        protected bool MarkDisposed() => Interlocked.Exchange(ref _disposed, 1) == 0;
 
         protected T MoveValue() {
             MarkDisposed();
@@ -40,9 +44,7 @@ namespace OwnedMemory {
             }
         }
 
-        ~SafeDisposableStructWrapper() {
-            Dispose(disposing: false);
-        }
+        ~SafeDisposableStructWrapper() => Dispose(disposing: false);
 
         public void Dispose() {
             Dispose(disposing: true);
