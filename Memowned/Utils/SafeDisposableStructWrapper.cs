@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace Memowned {
-    public class SafeDisposableStructWrapper<T> : IDisposable
+    public abstract class SafeDisposableStructWrapper<T> : IDisposable
         where T : struct, IDisposable {
         private readonly T _value;
         private int _disposed;

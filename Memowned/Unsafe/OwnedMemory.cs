@@ -12,6 +12,7 @@ namespace Memowned {
 
         public OwnedMemory(Memory<T> memory, IDisposable? owner = default) =>
             (Memory, Owner) = (memory, owner);
+        public OwnedMemory(IMemoryOwner<T> memoryOwner) : this(memoryOwner.Memory, memoryOwner) { }
 
         public void Dispose() => Owner?.Dispose();
 
@@ -22,6 +23,7 @@ namespace Memowned {
         public static ReadOnlyOwnedMemory<T, IDisposable> Unowned(ReadOnlyMemory<T> memory) => new(memory, null);
         public static OwnedMemory<T, O> Owned<O>(Memory<T> memory, O owner) where O : IDisposable => new(memory, owner);
         public static ReadOnlyOwnedMemory<T, O> Owned<O>(ReadOnlyMemory<T> memory, O owner) where O : IDisposable => new(memory, owner);
+        public static OwnedMemory<T, O> Owned<O>(O memoryOwner) where O : IMemoryOwner<T> => new(memoryOwner.Memory, memoryOwner);
 
         public static OwnedMemory<T> Empty => default;
 
@@ -44,10 +46,12 @@ namespace Memowned {
             HashCode.Combine(Memory.GetHashCode(), Owner?.GetHashCode());
     }
 
-    public readonly struct OwnedMemory<T, O> : IMemoryOwner<T>, IEquatable<OwnedMemory<T, O>>
+    public readonly struct OwnedMemory<T, O> : IMemoryOwner<T>, IReadOnlyMemoryOwner<T>, IEquatable<OwnedMemory<T, O>>
         where O : IDisposable {
         public readonly Memory<T> Memory { get; }
         public readonly O? Owner { get; }
+
+        ReadOnlyMemory<T> IReadOnlyMemoryOwner<T>.Memory => Memory;
 
         public OwnedMemory(Memory<T> memory, O? owner = default) =>
             (Memory, Owner) = (memory, owner);
