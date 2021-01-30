@@ -46,9 +46,24 @@ namespace Memowned.Test {
             Assert.AreEqual(memory.Span.Length, size, ".Span has incorrect size.");
         }
 
+        [Test]
+        public void ArraySegmentLengthIsCorrect() {
+            var size = 71;
+            using var memory = new RentedMemory<byte>(size);
+            Assert.AreEqual(memory.DangerousGetArraySegment().Count, size, ".DangerousGetArraySegment() has incorrect size.");
+        }
+
+        [Test]
+        public void DangerousRefIsCorrect() {
+            var size = 71;
+            using var memory = new RentedMemory<byte>(size);
+            memory.Span[0] = 127;
+            Assert.AreEqual(memory.DangerousGetReference(), 127, ".DangerousGetReference() does not point to the first entry.");
+        }
 
         private class MockArrayPool<T> : ArrayPool<T> {
             public readonly HashSet<T[]> Rented = new();
+
             public override T[] Rent(int minimumLength) {
                 var array = new T[minimumLength];
                 Rented.Add(array);

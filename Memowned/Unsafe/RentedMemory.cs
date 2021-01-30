@@ -54,6 +54,32 @@ namespace Memowned {
         }
 
         /// <summary>
+        /// Returns a reference to specified element of the rented memory.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public ref T this[int index] => ref this[Index.FromStart(index)];
+
+        /// <summary>
+        /// Returns a reference to specified element of the rented memory.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public ref T this[Index index] => ref _buffer[index.GetOffset(Length)];
+
+        /// <summary>
+        /// Returns a <see cref="Span{T}"/> over the given <see cref="Range"/> of rented memory.
+        /// </summary>
+        /// <param name="range"></param>
+        /// <returns></returns>
+        public Span<T> this[Range range] {
+            get {
+                var (offset, count) = range.GetOffsetAndLength(Length);
+                return _buffer.AsSpan(offset, count);
+            }
+        }
+
+        /// <summary>
         /// Gets the underlying rented <typeparamref name="T"/> array.
         /// </summary>
         /// <remarks>
@@ -95,7 +121,7 @@ namespace Memowned {
         public OwnedMemory<T, RentedMemory<T>> AsOwnedMemory() => new(Memory, this);
 
         /// <summary>
-        /// Returns a <see cref="OwnedSpan{T, RentedMemory{T}}"/> instance wrapping the current instance.
+        /// Returns an <see cref="OwnedSpan{T, RentedMemory{T}}"/> instance wrapping the current instance.
         /// </summary>
         /// <remarks>
         /// As the returned <see cref="OwnedSpan{T, RentedMemory{T}}"/> instance wraps the same array as the current instance only the returned one should

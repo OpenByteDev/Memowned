@@ -38,6 +38,7 @@ namespace Memowned {
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object? other) => other is UnownedMemory<T> memory && Equals(memory);
+
         /// <inheritdoc/>
         public bool Equals(UnownedMemory<T> other) => Memory.Equals(other.Memory);
 
@@ -46,7 +47,7 @@ namespace Memowned {
         public override int GetHashCode() => Memory.GetHashCode();
 
         /// <summary>
-        /// For <see cref="Memory{Char}"/>, returns a new instance of string that represents the characters pointed to by the memory.
+        /// For <see cref="Memory{char}"/>, returns a new instance of string that represents the characters pointed to by the memory.
         /// Otherwise, returns a <see cref="string"/> with the name of the type and the number of elements.
         /// </summary>
         public override string ToString() {
