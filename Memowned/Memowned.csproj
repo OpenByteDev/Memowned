@@ -15,7 +15,7 @@
     <PackageProjectUrl>https://github.com/OpenByteDev/OwnedMemory</PackageProjectUrl>
     <RepositoryUrl>https://github.com/OpenByteDev/OwnedMemory</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>0.3.0</Version>
+    <Version>0.3.1</Version>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>A bunch of utilities related to memory ownership.</Description>
     <PackageTags>memory; ownership</PackageTags>
