@@ -226,7 +226,13 @@ namespace Memowned {
         public static implicit operator OwnedMemory<T, O>(Memory<T> memory) => new(memory);
         public static implicit operator Memory<T>(OwnedMemory<T, O> ownedMemory) => ownedMemory.Memory;
         public static implicit operator OwnedMemory<T>(OwnedMemory<T, O> ownedMemory) => new(ownedMemory.Memory, ownedMemory.Owner);
-        public static implicit operator ReadOnlyOwnedMemory<T, O>(OwnedMemory<T, O> ownedMemory) => Unsafe.As<OwnedMemory<T, O>, ReadOnlyOwnedMemory<T, O>>(ref ownedMemory);
+        public static implicit operator ReadOnlyOwnedMemory<T, O>(OwnedMemory<T, O> ownedMemory) {
+#if NETSTANDARD2_1
+            return new(ownedMemory.Memory, ownedMemory.Owner);
+#else
+            return Unsafe.As<OwnedMemory<T, O>, ReadOnlyOwnedMemory<T, O>>(ref ownedMemory);
+#endif
+        }
 
         public static explicit operator OwnedSpan<T, O>(OwnedMemory<T, O> ownedMemory) => new(ownedMemory.Memory.Span, ownedMemory.Owner);
 
