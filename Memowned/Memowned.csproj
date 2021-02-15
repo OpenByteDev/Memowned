@@ -17,6 +17,8 @@
     <RepositoryType>git</RepositoryType>
     <Version>0.2.0</Version>
     <NeutralLanguage>en</NeutralLanguage>
+    <Description>A bunch of utilities related to memory ownership.</Description>
+    <PackageTags>memory; ownership</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
