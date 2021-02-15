@@ -29,7 +29,15 @@ namespace Memowned {
         /// <summary>
         /// Gets a <see cref="Span{T}"/> wrapping the rented memory.
         /// </summary>
-        public readonly Span<T> Span => MemoryMarshal.CreateSpan(ref DangerousGetReference(), Length);
+        public readonly Span<T> Span {
+            get {
+#if NET5_0
+                return MemoryMarshal.CreateSpan(ref DangerousGetReference(), Length);
+#else
+                return _buffer.AsSpan(0, Length);
+#endif
+            }
+        }
 
         /// <summary>
         /// The number of items in the current instance.
@@ -94,10 +102,12 @@ namespace Memowned {
         /// </remarks>
         public ArraySegment<T> DangerousGetArraySegment() => new(_buffer, 0, Length);
 
+#if NET5_0
         /// <summary>
         /// Returns a reference to the first element of the rented memory.
         /// </summary>
         public ref T DangerousGetReference() => ref MemoryMarshal.GetArrayDataReference(_buffer);
+#endif
 
         /// <summary>
         /// Returns a <see cref="SafeRentedMemory{T}"/> instance wrapping the current instance.
