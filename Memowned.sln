@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memowned", "Memowned\Memown
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memowned.Test", "Memowned.Test\Memowned.Test.csproj", "{226A3517-EFDF-429F-802E-4717154A3E63}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Memowned.Benchmark", "Memowned.Benchmark\Memowned.Benchmark.csproj", "{DA34F739-55C6-4782-A942-3330F8B6C8D3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{226A3517-EFDF-429F-802E-4717154A3E63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{226A3517-EFDF-429F-802E-4717154A3E63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{226A3517-EFDF-429F-802E-4717154A3E63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA34F739-55C6-4782-A942-3330F8B6C8D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA34F739-55C6-4782-A942-3330F8B6C8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA34F739-55C6-4782-A942-3330F8B6C8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA34F739-55C6-4782-A942-3330F8B6C8D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
