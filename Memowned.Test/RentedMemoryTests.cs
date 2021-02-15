@@ -61,7 +61,7 @@ namespace Memowned.Test {
             Assert.AreEqual(memory.DangerousGetReference(), 127, ".DangerousGetReference() does not point to the first entry.");
         }
 
-        private class MockArrayPool<T> : ArrayPool<T> {
+        private sealed class MockArrayPool<T> : ArrayPool<T> {
             public readonly HashSet<T[]> Rented = new();
 
             public override T[] Rent(int minimumLength) {

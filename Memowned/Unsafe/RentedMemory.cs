@@ -57,21 +57,18 @@ namespace Memowned {
         /// Returns a reference to specified element of the rented memory.
         /// </summary>
         /// <param name="index"></param>
-        /// <returns></returns>
         public ref T this[int index] => ref this[Index.FromStart(index)];
 
         /// <summary>
         /// Returns a reference to specified element of the rented memory.
         /// </summary>
         /// <param name="index"></param>
-        /// <returns></returns>
         public ref T this[Index index] => ref _buffer[index.GetOffset(Length)];
 
         /// <summary>
         /// Returns a <see cref="Span{T}"/> over the given <see cref="Range"/> of rented memory.
         /// </summary>
         /// <param name="range"></param>
-        /// <returns></returns>
         public Span<T> this[Range range] {
             get {
                 var (offset, count) = range.GetOffsetAndLength(Length);
@@ -142,7 +139,7 @@ namespace Memowned {
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() => HashCode.Combine(_buffer.GetHashCode(), Pool.GetHashCode(), Length.GetHashCode());
-        
+
         /// <summary>
         /// For <see cref="Memory{Char}"/>, returns a new instance of string that represents the characters pointed to by the memory.
         /// Otherwise, returns a <see cref="string"/> with the name of the type and the number of elements.
@@ -153,10 +150,12 @@ namespace Memowned {
                 return new string(chars, 0, Length);
 
             // Same representation used in Memory<T>
-            return $"RentedMemory<{typeof(T)}>[{Length}]";
+            return $"RentedMemory<{typeof(T)}>[{Length.ToString()}]";
         }
 
+        /// <summary>
         /// Returns an empty <see cref="RentedMemory{T}"/> instance.
+        /// </summary>
         public static RentedMemory<T> Empty => default;
 
         public static implicit operator Memory<T>(RentedMemory<T> rentedMemory) => rentedMemory.Memory;

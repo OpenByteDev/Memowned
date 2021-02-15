@@ -15,12 +15,11 @@ namespace Memowned {
         /// <param name="pool">The <see cref="ArrayPool{T}"/> instance to use.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="minimumLength"/> is invalid.</exception>
         public SafeRentedMemory(int minimumLength, ArrayPool<T>? pool = null) : this(new(minimumLength, pool)) { }
-
         /// <summary>
         /// Constructs a new <see cref="SafeRentedMemory{T}"/> instance wrapping the given <see cref="RentedMemory{T}"/>.
         /// </summary>
-        /// <param name="memory">The <see cref="RentedMemory{T}"/> instance to wrap.</param>
-        public SafeRentedMemory(RentedMemory<T> memory) : base(memory) { }
+        /// <param name="rentedMemory">The <see cref="RentedMemory{T}"/> instance to wrap.</param>
+        public SafeRentedMemory(RentedMemory<T> rentedMemory) : base(rentedMemory) { }
 
         /// <inheritdoc/>
         public Memory<T> Memory => Value.Memory;
@@ -46,7 +45,7 @@ namespace Memowned {
         /// Returns a <see cref="SafeOwnedMemory{T, RentedMemory{T}}"/> instance wrapping the underlying <see cref="RentedMemory{T}"/> instance.
         /// </summary>
         /// <remarks>
-        /// As the returned <see cref="SafeOwnedMemory{T, RentedMemory{T}}"/> instance wraps the same array as the current instance only the returned 
+        /// As the returned <see cref="SafeOwnedMemory{T, RentedMemory{T}}"/> instance wraps the same array as the current instance only the returned
         /// one should be used. The current instance will be disposed after the call.
         /// </remarks>
         public SafeOwnedMemory<T, RentedMemory<T>> AsOwned() => new(Memory, MoveValue());
