@@ -33,7 +33,9 @@ namespace Memowned {
             Memory = memory;
 
         /// <inheritdoc/>
-        public void Dispose() { }
+        public void Dispose() {
+            // Method intentionally left empty.
+        }
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
