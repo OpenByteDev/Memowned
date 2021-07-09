@@ -141,7 +141,7 @@ namespace Memowned {
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? other) => other is RentedMemory<T> rentedMemory && Equals(rentedMemory);
+        public override bool Equals(object? obj) => obj is RentedMemory<T> rentedMemory && Equals(rentedMemory);
 
         /// <inheritdoc/>
         public bool Equals(RentedMemory<T> other) => _buffer == other._buffer;

@@ -51,7 +51,7 @@ namespace Memowned {
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? other) => false;
+        public override bool Equals(object? obj) => false;
 
         /// <inheritdoc/>
         public bool Equals(OwnedSpan<T> other) =>
@@ -131,7 +131,7 @@ namespace Memowned {
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? other) => false;
+        public override bool Equals(object? obj) => false;
 
         /// <inheritdoc/>
         public bool Equals(OwnedSpan<T, O> other) =>

@@ -91,8 +91,8 @@ namespace Memowned {
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? other) =>
-            other is OwnedMemory<T> ownedMemory && Equals(ownedMemory);
+        public override bool Equals(object? obj) =>
+            obj is OwnedMemory<T> ownedMemory && Equals(ownedMemory);
 
         /// <inheritdoc/>
         public bool Equals(OwnedMemory<T> other) =>
@@ -201,8 +201,8 @@ namespace Memowned {
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? other) =>
-            other is OwnedMemory<T, O> ownedMemory && Equals(ownedMemory);
+        public override bool Equals(object? obj) =>
+            obj is OwnedMemory<T, O> ownedMemory && Equals(ownedMemory);
 
         /// <inheritdoc/>
         public bool Equals(OwnedMemory<T, O> other) =>

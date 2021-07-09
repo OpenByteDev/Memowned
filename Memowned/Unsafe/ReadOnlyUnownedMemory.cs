@@ -33,7 +33,7 @@ namespace Memowned {
 
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? other) => other is ReadOnlyUnownedMemory<T> memory && Equals(memory);
+        public override bool Equals(object? obj) => obj is ReadOnlyUnownedMemory<T> memory && Equals(memory);
 
         /// <inheritdoc/>
         public bool Equals(ReadOnlyUnownedMemory<T> other) => Memory.Equals(other.Memory);
